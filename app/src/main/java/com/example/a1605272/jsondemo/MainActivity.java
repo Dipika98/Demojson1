@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
                 urlConnection= (HttpURLConnection)url.openConnection();
 
-                InputStream in =urlConnection.getInputStream();
-
                 urlConnection.connect();
+
+                InputStream in =urlConnection.getInputStream();
 
                 InputStreamReader reader=new InputStreamReader(in);
 
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                     data=reader.read();
                 }
 
+                return result.toString();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            Log.i("website content",result);
-
+            if (result != null)
+                Log.i("website content",result);
+            else
+                Log.e("website content","error");
         }
     }
 }
